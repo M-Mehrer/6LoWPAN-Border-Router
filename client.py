@@ -1,7 +1,7 @@
 import socket
 
 #insert ipv6 address of your device
-SERVER_ADDR = '2a02:8071:287:4e00:8525:7c01:71c0:6180'
+SERVER_ADDR = 'fd76:afe2:b6b0:0:b827:ebff:fe5e:6de'
 SERVER_PORT = 9000
 sequence_number = 1
 sock = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
