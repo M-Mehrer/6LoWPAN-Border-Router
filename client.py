@@ -1,4 +1,5 @@
 import socket
+import time
 
 SERVER_PORT_BLE = 9010
 SERVER_ADDR_BLE = 'fdee:f1e7:b9b5:10:b827:ebff:fe5e:6de'
@@ -18,28 +19,40 @@ response_socket.bind(response_addr)
 
 FILENAME = "TestPayload"
 
-buff_size = [8, 16, 32, 64, 128, 1024, 4096]
+buff_size = [8, 32, 128, 1024, 4096, 16384, 65536]
 for buff in buff_size:
+    print("Start BLE with buffer size " + str(buff))
     f = open(FILENAME, 'rb')
     data = f.read(buff)
+    start = time.time()
     while (data):
         ble_socket.sendto(data, server_addr_ble)
-        recv_data = response_socket.recvfrom(buff)
-        print(recv_data)
-        data = f.read(buff)
-    print("Send END")
+        try:
+            response_socket.settimeout(2)
+            recv_data = response_socket.recvfrom(buff)
+            data = f.read(buff)
+        except socket.timeout:
+            print("Timeout")
+    duration = time.time() - start
+    print(str(duration))
     ble_socket.sendto(bytes("END", "UTF-8"), server_addr_ble)
     recv_data = response_socket.recvfrom(buff)
     f.close()
 
-    print("Start WLAN")
+    print("Start WLAN with buffer size " + str(buff))
     f = open(FILENAME, 'rb')
     data = f.read(buff)
+    start = time.time()
     while (data):
         wlan_socket.sendto(data, server_addr_wlan)
-        recv_data = wlan_socket.recvfrom(buff)
-        print(recv_data)
-        data = f.read(buff)
-    ble_socket.sendto(bytes("END", "UTF-8"), server_addr_ble)
-    recv_data = response_socket.recvfrom(buff)
+        try:
+            wlan_socket.settimeout(2)
+            recv_data = wlan_socket.recvfrom(buff)
+            data = f.read(buff)
+        except socket.timeout:
+            print("Timeout")
+    duration = time.time() - start
+    print(str(duration))
+    wlan_socket.sendto(bytes("END", "UTF-8"), server_addr_wlan)
+    recv_data = wlan_socket.recvfrom(buff)
     f.close()

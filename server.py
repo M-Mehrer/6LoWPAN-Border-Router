@@ -19,7 +19,7 @@ response_addr = (RESPONSE_ADDR, RESPONSE_PORT, 0, 0)
 
 print("Server started...")
 
-buff_size = [8, 16, 32, 64, 128, 1024, 4096]
+buff_size = [8, 32, 128, 1024, 4096, 16384, 65536]
 while 1 :
     print("Ready for test")
     for buff in buff_size:
