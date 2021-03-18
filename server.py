@@ -31,7 +31,7 @@ while 1 :
                 if(recv_data[0] == "END".encode("UTF-8")):
                     receiving = False
                 response_socket.sendto(recv_data[0], response_addr)
-            except:
+            except socket.timeout:
                 print("Timeout")
         receiving = True
         while receiving:
@@ -41,6 +41,6 @@ while 1 :
                 if(recv_data[0] == "END".encode("UTF-8")):
                     receiving = False
                 wlan_socket.sendto(recv_data[0], recv_data[1])
-            except:
+            except socket.timeout:
                 print("Timeout")
 
