@@ -26,7 +26,7 @@ while 1 :
         receiving = True
         while receiving:
             try:
-                ble_socket.settimeout(2)
+                ble_socket.settimeout(20)
                 recv_data = ble_socket.recvfrom(buff)
                 if(recv_data[0] == "END".encode("UTF-8")):
                     receiving = False

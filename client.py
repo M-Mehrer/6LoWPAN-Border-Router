@@ -28,7 +28,7 @@ for buff in buff_size:
     while (data):
         ble_socket.sendto(data, server_addr_ble)
         try:
-            response_socket.settimeout(2)
+            response_socket.settimeout(20)
             recv_data = response_socket.recvfrom(buff)
             data = f.read(buff)
         except socket.timeout:
