@@ -19,7 +19,7 @@ response_socket.bind(response_addr)
 
 FILENAME = "TestPayload"
 
-buff_size = [8, 32, 128, 1024, 4096, 16384, 65536]
+buff_size = [8, 32, 128, 1024, 8192, 32768, 131072]
 for buff in buff_size:
     print("Start BLE with buffer size " + str(buff))
     f = open(FILENAME, 'rb')
