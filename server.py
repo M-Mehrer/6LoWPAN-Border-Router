@@ -23,12 +23,18 @@ buff_size = [8, 16, 32, 64, 128, 1024, 4096]
 while 1 :
     print("Ready for test")
     for buff in buff_size:
-        for x in range(100):
+        receiving = True
+        while receiving:
             recv_data = ble_socket.recvfrom(buff)
             print(recv_data)
+            if(recv_data[0] == "END".encode("UTF-8")):
+                receiving = False
             response_socket.sendto(recv_data[0], response_addr)
+        receiving = True
         for y in range(100):
             recv_data = wlan_socket.recvfrom(buff)
             print(recv_data)
+            if(recv_data[0] == "END".encode("UTF-8")):
+                receiving = False
             wlan_socket.sendto(recv_data[0], recv_data[1])
 

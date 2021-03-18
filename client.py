@@ -16,21 +16,28 @@ response_socket = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
 response_addr = (RESPONSE_ADDR, RESPONSE_PORT, 0, 0)
 response_socket.bind(response_addr)
 
-payload = ": test String with a size of 128 bytes AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-print(len(payload.encode('utf-8')))
+FILENAME = "TestPayload"
 
 buff_size = [8, 16, 32, 64, 128, 1024, 4096]
 for buff in buff_size:
-    id = 100
-    for x in range(100):
-        data = bytes(str(id) + payload)
+    f = open(FILENAME, 'rb')
+    data = f.read(buff)
+    while (data):
         ble_socket.sendto(data, server_addr_ble)
         recv_data = response_socket.recvfrom(buff)
         print(recv_data)
-        id += 1
-    for y in range(100):
-        data = bytes(str(id) + payload)
+        data = f.read(buff)
+    ble_socket.sendto(bytes("END", "UTF-8"), server_addr_ble)
+    recv_data = response_socket.recvfrom(buff)
+    f.close()
+
+    f = open(FILENAME, 'rb')
+    data = f.read(buff)
+    while (data):
         wlan_socket.sendto(data, server_addr_wlan)
         recv_data = wlan_socket.recvfrom(buff)
         print(recv_data)
-        id += 1
+        data = f.read(buff)
+    ble_socket.sendto(bytes("END", "UTF-8"), server_addr_ble)
+    recv_data = response_socket.recvfrom(buff)
+    f.close()
