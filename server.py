@@ -25,16 +25,22 @@ while 1 :
     for buff in buff_size:
         receiving = True
         while receiving:
-            recv_data = ble_socket.recvfrom(buff)
-            print(recv_data)
-            if(recv_data[0] == "END".encode("UTF-8")):
-                receiving = False
-            response_socket.sendto(recv_data[0], response_addr)
+            try:
+                ble_socket.settimeout(2)
+                recv_data = ble_socket.recvfrom(buff)
+                if(recv_data[0] == "END".encode("UTF-8")):
+                    receiving = False
+                response_socket.sendto(recv_data[0], response_addr)
+            except:
+                print("Timeout")
         receiving = True
-        for y in range(100):
-            recv_data = wlan_socket.recvfrom(buff)
-            print(recv_data)
-            if(recv_data[0] == "END".encode("UTF-8")):
-                receiving = False
-            wlan_socket.sendto(recv_data[0], recv_data[1])
+        while receiving:
+            try:
+                wlan_socket.settimeout(2)
+                recv_data = wlan_socket.recvfrom(buff)
+                if(recv_data[0] == "END".encode("UTF-8")):
+                    receiving = False
+                wlan_socket.sendto(recv_data[0], recv_data[1])
+            except:
+                print("Timeout")
 

@@ -27,10 +27,12 @@ for buff in buff_size:
         recv_data = response_socket.recvfrom(buff)
         print(recv_data)
         data = f.read(buff)
+    print("Send END")
     ble_socket.sendto(bytes("END", "UTF-8"), server_addr_ble)
     recv_data = response_socket.recvfrom(buff)
     f.close()
 
+    print("Start WLAN")
     f = open(FILENAME, 'rb')
     data = f.read(buff)
     while (data):
