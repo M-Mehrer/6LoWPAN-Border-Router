@@ -23,16 +23,16 @@ buff_size = [8, 32, 128, 1024, 2048, 4096, 8192, 32768, 131072]
 while 1 :
     print("Ready for test")
     for buff in buff_size:
-        receiving = True
-        while receiving:
-            try:
-                ble_socket.settimeout(20)
-                recv_data = ble_socket.recvfrom(buff)
-                if(recv_data[0] == "END".encode("UTF-8")):
-                    receiving = False
-                response_socket.sendto(recv_data[0], response_addr)
-            except socket.timeout:
-                print("Timeout")
+        # receiving = True
+        # while receiving:
+        #     try:
+        #         ble_socket.settimeout(20)
+        #         recv_data = ble_socket.recvfrom(buff)
+        #         if(recv_data[0] == "END".encode("UTF-8")):
+        #             receiving = False
+        #         response_socket.sendto(recv_data[0], response_addr)
+        #     except socket.timeout:
+        #         print("Timeout")
         receiving = True
         while receiving:
             try:

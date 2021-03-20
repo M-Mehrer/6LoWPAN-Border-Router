@@ -19,40 +19,62 @@ response_socket.bind(response_addr)
 
 FILENAME = "TestPayload"
 
+latency = 0
 buff_size = [8, 32, 128, 1024, 2048, 4096, 8192, 32768, 131072]
 for buff in buff_size:
-    print("Start BLE with buffer size " + str(buff))
-    f = open(FILENAME, 'rb')
-    data = f.read(buff)
-    start = time.time()
-    while (data):
-        ble_socket.sendto(data, server_addr_ble)
-        try:
-            response_socket.settimeout(20)
-            recv_data = response_socket.recvfrom(buff)
-            data = f.read(buff)
-        except socket.timeout:
-            print("Timeout")
-    duration = time.time() - start
-    print(str(duration))
-    ble_socket.sendto(bytes("END", "UTF-8"), server_addr_ble)
-    recv_data = response_socket.recvfrom(buff)
-    f.close()
+    # timeout_counter = 0
+    # first_paket = True
+    # print("Start BLE with buffer size " + str(buff))
+    # f = open(FILENAME, 'rb')
+    # data = f.read(buff)
+    # start = time.time()
+    # while (data):
+    #     try:
+    #         ble_socket.sendto(data, server_addr_ble)
+    #         response_socket.settimeout(5)
+    #         recv_data = response_socket.recvfrom(buff)
+    #         data = f.read(buff)
+    #     except socket.timeout:
+    #         timeout_counter += 1
+    #         print("Timeout")
+    #     if first_paket:
+    #         latency = time.time() - start
+    #         first_paket = False
+    #
+    # duration = time.time() - start
+    # print("Dauer: " + str(duration) + " Sekunden")
+    # print("Latenz: " + str(latency) + " Sekunden")
+    # print("Timeouts: " + str(timeout_counter))
+    # print()
+    #
+    # ble_socket.sendto(bytes("END", "UTF-8"), server_addr_ble)
+    # recv_data = response_socket.recvfrom(buff)
+    # f.close()
 
+    timeout_counter = 0
+    first_paket = True
     print("Start WLAN with buffer size " + str(buff))
     f = open(FILENAME, 'rb')
     data = f.read(buff)
     start = time.time()
     while (data):
-        wlan_socket.sendto(data, server_addr_wlan)
         try:
-            wlan_socket.settimeout(2)
+            wlan_socket.sendto(data, server_addr_wlan)
+            wlan_socket.settimeout(5)
             recv_data = wlan_socket.recvfrom(buff)
             data = f.read(buff)
         except socket.timeout:
+            timeout_counter += 1
             print("Timeout")
+        if first_paket:
+            latency = time.time() - start
+            first_paket = False
     duration = time.time() - start
-    print(str(duration))
+    print("Dauer: " + str(duration) + " Sekunden")
+    print("Latenz: " + str(latency) + " Sekunden")
+    print("Timeouts: " + str(timeout_counter))
+    print()
+
     wlan_socket.sendto(bytes("END", "UTF-8"), server_addr_wlan)
     recv_data = wlan_socket.recvfrom(buff)
     f.close()
