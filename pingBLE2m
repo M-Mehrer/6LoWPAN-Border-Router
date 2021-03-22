@@ -1,0 +1,18 @@
+PING fe80::5cf3:70ff:fe9c:bc4f(fe80::5cf3:70ff:fe9c:bc4f) from :: bt0: 56 data bytes
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=1 ttl=64 time=82.9 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=2 ttl=64 time=57.1 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=3 ttl=64 time=127 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=4 ttl=64 time=100 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=5 ttl=64 time=123 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=6 ttl=64 time=96.5 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=7 ttl=64 time=70.8 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=8 ttl=64 time=92.6 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=9 ttl=64 time=66.4 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=10 ttl=64 time=88.2 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=11 ttl=64 time=61.4 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=12 ttl=64 time=83.0 ms
+64 bytes from fe80::5cf3:70ff:fe9c:bc4f%bt0: icmp_seq=13 ttl=64 time=56.10 ms
+
+--- fe80::5cf3:70ff:fe9c:bc4f ping statistics ---
+13 packets transmitted, 13 received, 0% packet loss, time 31ms
+rtt min/avg/max/mdev = 56.967/85.131/127.226/22.107 ms
