@@ -58,7 +58,7 @@ for i in range(filenames_ble.__len__()):
     print("Anzahl Ausreißer BLE " + str(distance[i]) + "m (>20% über Durchschnitt): " + str(peaks))
 
 for i in range(filenames_wlan.__len__()):
-    f = open("testdata/" + str(filenames_wlan[0]) + ".txt", "r", encoding = "utf-16")
+    f = open("testdata/" + str(filenames_wlan[i]) + ".txt", "r", encoding = "utf-16")
     file_content = f.read()
     f.close()
 
